@@ -26,13 +26,6 @@ function Home({ vehicleMakeData, vehicleMakeFormStore }) {
             console.error("Error deleting data:", error);
           }
         }}
-        onUpdate={async (id) => {
-          try {
-            await vehicleMakeFormStore.updateData(id);
-          } catch (error) {
-            console.error("Error updating data:", error);
-          }
-        }}
       />
 
       {/*       <Table

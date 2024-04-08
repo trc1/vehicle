@@ -2,7 +2,7 @@ import React from "react";
 import { observer } from "mobx-react";
 
 function AddDataForm({ formStore }) {
-  const handleSubmit = async () => {
+  const handleClick = async () => {
     try {
       await formStore.createNewData();
     } catch (error) {
@@ -11,7 +11,7 @@ function AddDataForm({ formStore }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form>
       <div>
         <label>Name:</label>
         <input
@@ -34,7 +34,7 @@ function AddDataForm({ formStore }) {
           }}
         />
       </div>
-      <button type="submit">Submit</button>
+      <button onClick={handleClick}>Submit</button>
     </form>
   );
 }

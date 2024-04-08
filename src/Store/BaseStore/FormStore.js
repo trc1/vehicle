@@ -25,11 +25,10 @@ class FormStore {
     try {
       await this.services.addData(this.formData);
       runInAction(() => {
-        this.formData = {}; // Reset formData upon successful submission
+        this.formData = {};
       });
     } catch (error) {
       console.error("Error creating new data:", error);
-      // Optionally, handle the error here or rethrow it to be caught elsewhere
       throw error;
     }
   };
