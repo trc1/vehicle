@@ -1,21 +1,6 @@
-class ApiServices {
+class ApiService {
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
-  }
-
-  async fetchData(queryParams = {}) {
-    try {
-      const url = this.constructURL(this.baseUrl, queryParams);
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error('Failed to fetch data');
-      }
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      throw error;
-    }
   }
 
   constructURL(baseUrl, queryParams) {
@@ -34,58 +19,40 @@ class ApiServices {
     return url;
   }
 
-  async addData(data) {
-    try {
-      const response = await fetch(this.baseUrl, {
-        method: 'POST',
-        headers: this.getHeaders(),
-        body: JSON.stringify(data),
-      });
-      if (!response.ok) {
-        throw new Error('Failed to add new resource');
-      }
-    } catch (error) {
-      console.error('Error adding resource:', error);
-      throw error;
-    }
-  }
-
-  async deleteDataService(id) {
-    try {
-      const response = await fetch(`${this.baseUrl}/${id}`, {
-        method: 'DELETE',
-        headers: this.getHeaders(),
-      });
-      if (!response.ok) {
-        throw new Error('Failed to delete');
-      }
-    } catch (error) {
-      console.error('Error deleting:', error);
-      throw error;
-    }
-  }
-
-  async updateDataService(id, data) {
-    try {
-      const response = await fetch(`${this.baseUrl}/${id}`, {
-        method: 'PATCH',
-        headers: this.getHeaders(),
-        body: JSON.stringify(data),
-      });
-      if (!response.ok) {
-        throw new Error('Failed to update');
-      }
-    } catch (error) {
-      console.error('Error updating:', error);
-      throw error;
-    }
-  }
   getHeaders() {
     return {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${localStorage.getItem('userToken')}`,
     };
   }
+
+  async fetch(queryParams = {}) {    
+    const url = this.constructURL(this.baseUrl, queryParams);
+    return await fetch(url);
+  }
+
+  async add(data) {
+    return await fetch(this.baseUrl, {
+      method: 'POST',
+      headers: this.getHeaders(),
+      body: JSON.stringify(data),
+    });
+  }
+
+  async delete(id) {
+    return await fetch(`${this.baseUrl}/${id}`, {
+      method: 'DELETE',
+      headers: this.getHeaders(),
+    });
+  }
+
+  async update(id, data) {
+    return await fetch(`${this.baseUrl}/${id}`, {
+      method: 'PATCH',
+      headers: this.getHeaders(),
+      body: JSON.stringify(data),
+    });
+  }
 }
 
-export default ApiServices;
+export default ApiService;
