@@ -1,4 +1,4 @@
-import { makeObservable, observable, action, runInAction } from "mobx";
+import { makeObservable, observable, action, runInAction } from 'mobx';
 
 class FormStore {
   formData = {};
@@ -23,21 +23,22 @@ class FormStore {
 
   createNewData = async () => {
     try {
-      await this.services.addData(this.formData);
+      await this.services.add(this.formData);
       runInAction(() => {
         this.formData = {};
       });
     } catch (error) {
-      console.error("Error creating new data:", error);
+      console.error('Error creating new data:', error);
       throw error;
     }
   };
 
   async deleteData(data) {
     try {
-      await this.services.deleteDataService(data);
+      await this.services.delete(data);
+      console.log('Dlete data');
     } catch (error) {
-      console.error("Error deleting data:", error);
+      console.error('Error deleting data:', error);
     }
   }
   updateData(resource) {
@@ -45,16 +46,17 @@ class FormStore {
       id: resource,
       data: this.editedFormData,
     };
-    console.log("Update Data:", data);
+    console.log('Update Data:', data);
 
     // Call updateDataService asynchronously
-    this.updateDataService(data.id, data.data)
+    this.services
+      .update(data.id, data.data)
       .then(() => {
-        console.log("Data updated successfully!");
+        console.log('Data updated successfully!');
         this.editedFormData = {}; // Reset inputUpdateValues after submission
       })
       .catch((error) => {
-        console.error("Failed to update data:", error);
+        console.error('Failed to update data:', error);
         // Optionally handle error here
       });
   }
