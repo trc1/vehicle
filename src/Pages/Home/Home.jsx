@@ -13,6 +13,7 @@ function Home() {
 
       <TableMake
         vehicleData={vehicleModelData}
+        onEdit={(id, data) => console.log('ID', id, 'data', data)}
         onDelete={async (id) => {
           await vehicleModelFormStore.deleteData(id);
           await vehicleModelData.getData('fetchVehicleModels');

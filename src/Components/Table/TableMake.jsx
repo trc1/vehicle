@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 
-function TableMake({ vehicleData, onDelete }) {
+function TableMake({ vehicleData, onDelete, onEdit }) {
   if (!vehicleData.data || vehicleData.data.length === 0) {
     return <div>No data available</div>;
   }
@@ -19,21 +19,30 @@ function TableMake({ vehicleData, onDelete }) {
         </tr>
       </thead>
       <tbody>
-        {vehicleData.data.map((d, index) => (
+        {vehicleData.data.map((item, index) => (
           <tr key={index}>
             {headers.map((header) => (
               <td key={header}>
                 {header === 'image' || header === 'logo' ? (
-                  <img src={d[header]} alt='' width={50} />
+                  <img src={item[header]} alt='' width={50} />
                 ) : (
-                  <span>{d[header]}</span>
+                  <span>{item[header]}</span>
                 )}
               </td>
             ))}
             <td>
               <button
                 onClick={() => {
-                  onDelete(d.id);
+                  onEdit(item.id, item);
+                }}
+              >
+                Edit
+              </button>
+            </td>
+            <td>
+              <button
+                onClick={() => {
+                  onDelete(item.id);
                 }}
               >
                 Delete

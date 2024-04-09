@@ -1,5 +1,5 @@
 import React from 'react';
-import AddDataForm from '../../Components/Table/AddDataForm';
+import AddDataForm from '../../Components/Form/AddDataForm';
 import TableMake from '../../Components/Table/TableMake';
 import { observer } from 'mobx-react';
 import VehicleMakeFormStore from '../../Store/VehicleMakeFormStore';

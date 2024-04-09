@@ -1,5 +1,5 @@
 import React from 'react';
-import AddDataForm from '../../Components/Table/AddDataForm';
+import AddDataForm from '../../Components/Form/AddDataForm';
 import TableMake from '../../Components/Table/TableMake';
 import VehicleMakeStore from '../../Store/VehicleMakeStore';
 import VehicleModelStore from '../../Store/VehicleModelStore';

@@ -6,7 +6,7 @@ class VehicleMakeService extends ApiService {
     //env
   }
 
-  async fetchVehicleMakes(queryParams = {}) {    
+  async fetchVehicleMakes(queryParams = {}) {
     try {
       const response = await fetch(params);
       if (!response.ok) {
@@ -16,8 +16,8 @@ class VehicleMakeService extends ApiService {
       const data = await response.json();
 
       var mappedModel = {
-        vehicleId: data.id
-      }
+        vehicleId: data.id,
+      };
 
       return mappedModel;
     } catch (error) {
@@ -27,4 +27,4 @@ class VehicleMakeService extends ApiService {
   }
 }
 
-export default VehicleMakeServices;
+export default VehicleMakeService;

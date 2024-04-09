@@ -36,29 +36,27 @@ class FormStore {
   async deleteData(data) {
     try {
       await this.services.delete(data);
-      console.log('Dlete data');
     } catch (error) {
       console.error('Error deleting data:', error);
     }
   }
-  updateData(resource) {
+  async updateData(resource) {
     const data = {
       id: resource,
       data: this.editedFormData,
     };
     console.log('Update Data:', data);
 
-    // Call updateDataService asynchronously
-    this.services
-      .update(data.id, data.data)
-      .then(() => {
-        console.log('Data updated successfully!');
-        this.editedFormData = {}; // Reset inputUpdateValues after submission
-      })
-      .catch((error) => {
-        console.error('Failed to update data:', error);
-        // Optionally handle error here
-      });
+    try {
+      // Call updateDataService asynchronously using await
+      await this.services.update(data.id, data.data);
+      console.log('Data updated successfully!');
+      // Reset inputUpdateValues after submission
+      this.editedFormData = {};
+    } catch (error) {
+      console.error('Failed to update data:', error);
+      // Optionally handle error here
+    }
   }
 }
 export default FormStore;
