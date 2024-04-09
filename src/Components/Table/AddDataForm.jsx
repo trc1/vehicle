@@ -6,15 +6,30 @@ function AddDataForm({ formStore, tableData, makeData }) {
   }
 
   const inputs = Object.keys(tableData.data[0]).filter(
-    (key) => key.toLowerCase() !== 'id'
+    (key) =>
+      key.toLowerCase() !== 'id' &&
+      key.toLowerCase() !== 'rating' &&
+      key.toLowerCase() !== 'make' &&
+      key.toLowerCase() !== 'make-abrv'
   );
 
   const handleClick = async () => {
     await formStore.createNewData();
+    window.history.replaceState({}, document.title, window.location.pathname);
   };
 
   const handleChange = (key, value) => {
-    formStore.getFormData(key, value);
+    if (key.toLowerCase() === 'makeid') {
+      // Get the selected make object
+      const selectedMake = makeData.data.find((make) => make.id === value);
+      const { id, name, abrv } = selectedMake;
+      formStore.getFormData('makeId', id);
+      formStore.getFormData('make', name);
+      formStore.getFormData('make-abrv', abrv);
+    } else {
+      formStore.getFormData(key, value);
+    }
+    console.log(formStore);
   };
 
   return (
@@ -30,7 +45,7 @@ function AddDataForm({ formStore, tableData, makeData }) {
               >
                 <option value=''>Select a make</option>
                 {makeData.data.map((make) => (
-                  <option key={make.id} value={make.makeId}>
+                  <option key={make.id} value={make.id}>
                     {make.name}
                   </option>
                 ))}
