@@ -1,19 +1,28 @@
 import React from 'react';
-import Table from '../../Components/Table/Table';
-import { inject, observer } from 'mobx-react';
-import FormField from '../../Components/Form/FormField';
+import AddDataForm from '../../Components/Table/AddDataForm';
+import TableMake from '../../Components/Table/TableMake';
+import { observer } from 'mobx-react';
+import VehicleMakeFormStore from '../../Store/VehicleMakeFormStore';
+import VehicleMakeStore from '../../Store/VehicleMakeStore';
 
-function VehicleMake({ rootStore }) {
-  let vehicleMakeData = rootStore.vehicleMakeStore.data;
+const vehicleMakeData = new VehicleMakeStore();
+const vehicleMakeFormStore = new VehicleMakeFormStore();
+function VehicleMake() {
   return (
-    <>
-      <FormField />
-      <Table
-        data={vehicleMakeData}
-        onDelete={(id) => rootStore.vehicleMakeFormStore.deleteData(id)}
+    <div>
+      <AddDataForm
+        formStore={vehicleMakeFormStore}
+        tableData={vehicleMakeData}
       />
-    </>
+      <TableMake
+        vehicleData={vehicleMakeData}
+        onDelete={async (id) => {
+          await vehicleMakeFormStore.deleteData(id);
+          await vehicleMakeData.getData('fetchVehicleMakes');
+        }}
+      />
+    </div>
   );
 }
 
-export default inject('rootStore')(observer(VehicleMake));
+export default observer(VehicleMake);

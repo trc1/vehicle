@@ -1,10 +1,10 @@
-import VehicleMakeServices from '../Services/VehicleMakeServices';
+import VehicleMakeService from '../Services/VehicleMakeService';
 import FormStore from './BaseStore/FormStore';
 
 class VehicleMakeFormStore extends FormStore {
   constructor() {
     super();
-    this.services = new VehicleMakeServices();
+    this.services = new VehicleMakeService();
   }
 }
 

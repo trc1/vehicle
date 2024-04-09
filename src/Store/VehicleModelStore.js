@@ -1,11 +1,11 @@
 import DataStore from './BaseStore/DataStore';
-import VehicleModelServices from '../Services/VehicleModelServices';
+import VehicleModelService from '../Services/VehicleModelService';
 
 class VehicleModelStore extends DataStore {
   constructor(props) {
     super(props);
-    this.services = new VehicleModelServices();
-    this.getData();
+    this.services = new VehicleModelService();
+    this.getData('fetchVehicleModels');
   }
 }
 
