@@ -1,10 +1,11 @@
-import React from 'react';
-import AddDataForm from '../../Components/Form/AddDataForm';
-import TableMake from '../../Components/Table/TableMake';
-import VehicleMakeStore from '../../Store/VehicleMakeStore';
-import VehicleModelStore from '../../Store/VehicleModelStore';
-import VehicleModelFormStore from '../../Store/VehicleModelFormStore';
-import SearchForm from '../../Components/Form/SearchForm';
+import React from "react";
+import AddDataForm from "../../Components/Form/AddDataForm";
+import TableMake from "../../Components/Table/TableMake";
+import VehicleMakeStore from "../../Store/VehicleMakeStore";
+import VehicleModelStore from "../../Store/VehicleModelStore";
+import VehicleModelFormStore from "../../Store/VehicleModelFormStore";
+import SearchForm from "../../Components/Form/SearchForm";
+import { observer } from "mobx-react";
 
 const vehicleModelData = new VehicleModelStore();
 const vehicleModelFormStore = new VehicleModelFormStore();
@@ -17,16 +18,16 @@ function VehicleModel() {
         formStore={vehicleModelFormStore}
         tableData={vehicleModelData}
         makeData={vehicleMakeData}
-        headers={['model', 'makeId']}
+        inputs={["model", "makeId"]}
       />
       <TableMake
         tableData={vehicleModelData}
         formStore={vehicleModelFormStore}
         edit={true}
-        headers={['name', 'makeId', 'make', 'make-abrv']}
+        headers={["model", "makeId"]}
       />
     </>
   );
 }
 
-export default VehicleModel;
+export default observer(VehicleModel);

@@ -1,4 +1,4 @@
-import { makeObservable, observable, action, runInAction } from 'mobx';
+import { makeObservable, observable, action, runInAction } from "mobx";
 
 class FormStore {
   formData = {};
@@ -15,6 +15,8 @@ class FormStore {
       getEditedFormData: action,
       createNewData: action,
       deleteData: action,
+      handleSelect: action,
+      handleSort: action,
     });
   }
 
@@ -25,23 +27,29 @@ class FormStore {
     this.editedFormData[inputKey] = inputValue;
   }
 
-  createNewData = async () => {
+  async createNewData() {
     try {
+      // Check if formData is empty
+      if (Object.keys(this.formData).length === 0) {
+        alert("Form data is empty. Cannot submit.");
+        return; // Prevent submission if formData is empty
+      }
+
       await this.services.add(this.formData);
       runInAction(() => {
         this.formData = {};
       });
     } catch (error) {
-      console.error('Error creating new data:', error);
+      console.error("Error creating new data:", error);
       throw error;
     }
-  };
+  }
 
   async deleteData(data) {
     try {
       await this.services.delete(data);
     } catch (error) {
-      console.error('Error deleting data:', error);
+      console.error("Error deleting data:", error);
     }
   }
   async updateData(resource) {
@@ -49,8 +57,6 @@ class FormStore {
       id: resource,
       data: this.editedFormData,
     };
-    console.log('Update Data:', data);
-
     try {
       // Call updateDataService asynchronously using await
       await this.services.update(data.id, data.data);
@@ -60,9 +66,30 @@ class FormStore {
         this.modal = false;
       });
     } catch (error) {
-      console.error('Failed to update data:', error);
+      console.error("Failed to update data:", error);
     }
   }
+
+  handleSelect = (item, value, tableData) => {
+    if (item.toLowerCase() === "makeid") {
+      // Get the selected make object
+      const selectedMake = tableData.data.find((make) => make.id === value);
+      const { id, name, abrv } = selectedMake;
+      this.getFormData("makeId", id);
+      /*       this.getFormData("make", name);
+      this.getFormData("make-abrv", abrv); */
+    } else {
+      this.getFormData(item, value);
+    }
+  };
+
+  handleSort = (header, dataStore) => {
+    const newSortBy = header.toLowerCase();
+    dataStore.setSortOrder((dataStore.sortBy = newSortBy));
+    dataStore.dataParams.sort = `${newSortBy}|${dataStore.sortOrder}`;
+    dataStore.getData();
+  };
+
   openModal(item) {
     runInAction(() => {
       this.modal = true;
