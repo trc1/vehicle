@@ -12,6 +12,7 @@ class DataStore {
       totalPages: observable,
       getData: action,
       setName: action,
+      setSortOrder: action,
     });
     this.dataParams = {
       page: 1,
@@ -19,14 +20,10 @@ class DataStore {
       searchQuery: null,
       sort: null,
     };
+    this.sortOrder = 'asc';
+    this.sortBy = '';
   }
-  /*   getData = async () => {
-    const fetchedData = await this.services.fetchVehicleModel(this.dataParams);
-    runInAction(() => {
-      this.data = fetchedData.item;
-      this.totalPages = fetchedData.totalRecords;
-    });
-  }; */
+
   getData = async () => {
     if (!this.services) {
       throw new Error('No services defined for data fetching.');
@@ -56,7 +53,15 @@ class DataStore {
   setName(newName) {
     this.name = newName;
   }
-
+  setSortOrder(newSort) {
+    if (this.sortBy !== newSort) {
+      this.sortOrder = 'asc';
+    } else {
+      if (this.sortOrder === 'asc') {
+        this.sortOrder = 'desc';
+      } else this.sortOrder = 'asc';
+    }
+  }
   //Pagination
   //Sorting
   //Filter

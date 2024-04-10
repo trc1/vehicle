@@ -18,17 +18,40 @@ function TableMake({ vehicleData, formStore, edit, makeData, headers }) {
   const vehicleHeaders = extractHeaders(vehicleData.data);
   const makeHeaders = makeData ? extractHeaders(makeData.data) : [];
 
+  const handleSort = (header, dataStore) => {
+    const newSortBy = header.toLowerCase(); // Convert to lower case
+    dataStore.setSortOrder((dataStore.sortBy = newSortBy)); // Toggle sort order
+    dataStore.dataParams.sort = `${newSortBy}|${dataStore.sortOrder}`; // Update sort params
+    dataStore.getData(); // Fetch data
+  };
+
   return (
     <>
       <table id='myTable'>
         <thead>
           <tr>
             {vehicleHeaders.map((header) => (
-              <th key={header}>{header}</th>
+              <th
+                key={header}
+                onClick={() => {
+                  handleSort(header, vehicleData);
+                }}
+              >
+                {header}
+              </th>
             ))}
             {/* Add headers for makeData if needed */}
             {makeHeaders.length > 0 &&
-              makeHeaders.map((header) => <th key={header}>{header}</th>)}
+              makeHeaders.map((header) => (
+                <th
+                  key={header}
+                  onClick={() => {
+                    handleSort(header, vehicleData);
+                  }}
+                >
+                  {header}
+                </th>
+              ))}
           </tr>
         </thead>
         <tbody>
