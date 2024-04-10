@@ -21,8 +21,10 @@ function AddDataForm({ formStore, tableData, makeData }) {
     if (key.toLowerCase() === 'makeid') {
       // Get the selected make object
       const selectedMake = makeData.data.find((make) => make.id === value);
-      const { id } = selectedMake;
+      const { id, name, abrv } = selectedMake;
       formStore.getFormData('makeId', id);
+      formStore.getFormData('make', name);
+      formStore.getFormData('make-abrv', abrv);
     } else {
       formStore.getFormData(key, value);
     }

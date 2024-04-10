@@ -13,6 +13,7 @@ class DataStore {
       getData: action,
       setName: action,
       setSortOrder: action,
+      setTableFilter: action,
     });
     this.dataParams = {
       page: 1,
@@ -62,8 +63,22 @@ class DataStore {
       } else this.sortOrder = 'asc';
     }
   }
+  setTableFilter(text) {
+    let textCombined = text.replace(/[^a-zA-Z0-9\s]+/g, '');
+    if (textCombined === '') {
+      if (text === '') {
+        this.dataParams.page = 1;
+        this.dataParams.searchQuery = null;
+        this.getData();
+      } else {
+        return null;
+      }
+    } else {
+      this.dataParams.page = 1;
+      this.dataParams.searchQuery = textCombined;
+      this.getData();
+    }
+  }
   //Pagination
-  //Sorting
-  //Filter
 }
 export default DataStore;

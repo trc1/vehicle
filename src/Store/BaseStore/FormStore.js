@@ -54,17 +54,13 @@ class FormStore {
     try {
       // Call updateDataService asynchronously using await
       await this.services.update(data.id, data.data);
-
-      console.log('Data updated successfully!');
       // Reset inputUpdateValues after submission
       this.editedFormData = {};
       runInAction(() => {
         this.modal = false;
       });
-      console.log(this.modal, 'Modal closed');
     } catch (error) {
       console.error('Failed to update data:', error);
-      // Optionally handle error here
     }
   }
   openModal(item) {

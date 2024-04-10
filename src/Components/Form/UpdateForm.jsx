@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { observer } from 'mobx-react';
 
 function UpdateForm({ data, formStore }) {
-  /*   if (!data || Object.keys(data).length === 0) {
+  if (!data || Object.keys(data).length === 0) {
     return null; // Return null or another fallback component if data is null or empty
-  } */
+  }
   const handleChange = (e, item) => {
     const { value } = e.target;
     formStore.getEditedFormData(item, value);

@@ -4,21 +4,19 @@ import TableMake from '../../Components/Table/TableMake';
 import VehicleModelFormStore from '../../Store/VehicleModelFormStore';
 import VehicleModelStore from '../../Store/VehicleModelStore';
 import VehicleMakeStore from '../../Store/VehicleMakeStore';
+import SearchForm from '../../Components/Form/SearchForm';
 
 const vehicleModelData = new VehicleModelStore();
 const vehicleModelFormStore = new VehicleModelFormStore();
-const vehicleMakeData = new VehicleMakeStore();
 function Home() {
-  console.log(vehicleMakeData);
   return (
     <>
       <div>Home</div>
-
+      <SearchForm tableData={vehicleModelData} />
       <TableMake
-        vehicleData={vehicleModelData}
+        tableData={vehicleModelData}
         formStore={vehicleModelFormStore}
-        makeData={vehicleMakeData}
-        headers={['name', 'makeId', 'abrv', 'make']}
+        headers={['name', 'makeId', 'make-abrv', 'make']}
       />
     </>
   );
