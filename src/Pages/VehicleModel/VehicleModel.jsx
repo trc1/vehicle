@@ -20,6 +20,7 @@ function VehicleModel() {
         vehicleData={vehicleModelData}
         formStore={vehicleModelFormStore}
         edit={true}
+        headers={['name', 'makeId']}
       />
     </>
   );

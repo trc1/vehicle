@@ -9,6 +9,7 @@ const vehicleModelData = new VehicleModelStore();
 const vehicleModelFormStore = new VehicleModelFormStore();
 const vehicleMakeData = new VehicleMakeStore();
 function Home() {
+  console.log(vehicleMakeData);
   return (
     <>
       <div>Home</div>
@@ -17,6 +18,7 @@ function Home() {
         vehicleData={vehicleModelData}
         formStore={vehicleModelFormStore}
         makeData={vehicleMakeData}
+        headers={['name', 'makeId', 'abrv', 'make']}
       />
     </>
   );

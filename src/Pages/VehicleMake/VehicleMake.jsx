@@ -18,6 +18,7 @@ function VehicleMake() {
         vehicleData={vehicleMakeData}
         formStore={vehicleMakeFormStore}
         edit={true}
+        headers={['name', 'abrv']}
       />
     </div>
   );

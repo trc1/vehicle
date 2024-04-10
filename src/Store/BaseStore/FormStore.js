@@ -15,7 +15,6 @@ class FormStore {
       getEditedFormData: action,
       createNewData: action,
       deleteData: action,
-      checkUpdatedValue: action,
     });
   }
 
@@ -80,27 +79,5 @@ class FormStore {
       this.modal = false;
     });
   }
-
-  checkUpdatedValue = (tableData, makeData) => {
-    // Check for updated value and handle accordingly
-    console.log(tableData, 'table');
-    console.log(makeData, 'make');
-    // Check for updated values and handle accordingly
-    if (makeData && makeData.length > 0) {
-      // Iterate through each makeData object
-      makeData.forEach((make) => {
-        // Find the corresponding item in tableData with matching makeId
-        const matchingItemIndex = tableData.findIndex(
-          (item) => item.makeId === makeData.id
-        );
-        if (matchingItemIndex !== -1) {
-          // Update the matching item in tableData with the data from makeData
-          console.log((tableData[matchingItemIndex].abrv = makeData.abrv));
-          tableData[matchingItemIndex].abrv = makeData.abrv;
-          tableData[matchingItemIndex].name = makeData.make;
-        }
-      });
-    }
-  };
 }
 export default FormStore;
