@@ -5,7 +5,8 @@ class VehicleMakeStore extends DataStore {
   constructor(props) {
     super(props);
     this.services = new VehicleMakeService();
-    this.getData('fetchVehicleMakes');
+    this.setName('VehicleMake');
+    this.getData();
   }
 }
 export default VehicleMakeStore;

@@ -16,10 +16,8 @@ function VehicleMake() {
       />
       <TableMake
         vehicleData={vehicleMakeData}
-        onDelete={async (id) => {
-          await vehicleMakeFormStore.deleteData(id);
-          await vehicleMakeData.getData('fetchVehicleMakes');
-        }}
+        formStore={vehicleMakeFormStore}
+        edit={true}
       />
     </div>
   );

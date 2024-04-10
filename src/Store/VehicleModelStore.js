@@ -5,7 +5,8 @@ class VehicleModelStore extends DataStore {
   constructor(props) {
     super(props);
     this.services = new VehicleModelService();
-    this.getData('fetchVehicleModels');
+    this.setName('VehicleModel');
+    this.getData();
   }
 }
 

@@ -18,10 +18,8 @@ function VehicleModel() {
       />
       <TableMake
         vehicleData={vehicleModelData}
-        onDelete={async (id) => {
-          await vehicleModelFormStore.deleteData(id);
-          await vehicleModelData.getData('fetchVehicleModels');
-        }}
+        formStore={vehicleModelFormStore}
+        edit={true}
       />
     </>
   );

@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { observer } from 'mobx-react';
 
 function UpdateForm({ data, formStore }) {
-  const [formData, setFormData] = useState(data); // Initialize formData state with the initial data
-
+  /*   if (!data || Object.keys(data).length === 0) {
+    return null; // Return null or another fallback component if data is null or empty
+  } */
   const handleChange = (e, item) => {
     const { value } = e.target;
-    setFormData({ ...formData, [item]: value }); // Update formData state with the new value
     formStore.getEditedFormData(item, value);
   };
   const renderInputs = () => {
@@ -15,7 +15,7 @@ function UpdateForm({ data, formStore }) {
         <label>{item}</label>
         <input
           type='text'
-          value={formData[item]} // Use formData state here
+          value={data[item]}
           onChange={(e) => handleChange(e, item)}
         />
       </div>
