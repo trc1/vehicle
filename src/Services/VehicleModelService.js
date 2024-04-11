@@ -2,7 +2,7 @@ import ApiService from "./ApiService";
 
 class VehicleModelService extends ApiService {
   constructor() {
-    super(`${import.meta.env.VITE_API_URL}vehicleModel`);
+    super(`${import.meta.env.VITE_API_URL}resources/vehicleModel`);
   }
 
   async fetchData(queryParams) {

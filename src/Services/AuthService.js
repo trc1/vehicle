@@ -1,6 +1,6 @@
 class AuthService {
   async loginUser(username, password) {
-    let loginUrl = 'https://api.baasic.com/v1/test234/login';
+    let loginUrl = `${import.meta.env.VITE_API_URL}login`;
     //env
     let response = await fetch(loginUrl, {
       method: 'POST',
