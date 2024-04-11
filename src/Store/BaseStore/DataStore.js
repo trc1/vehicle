@@ -4,13 +4,20 @@ class DataStore {
   data = [];
   totalPages = null;
   dataParams = {};
+  currentPage = 1;
+  itemsPerPageOptions = [5, 10, 20];
+  loading = false;
   constructor() {
     makeObservable(this, {
       data: observable,
       totalPages: observable,
+      currentPage: observable,
+      loading: observable,
       getData: action,
       setSortOrder: action,
       setTableFilter: action,
+      setCurrentPage: action,
+      setItemsPerPage: action,
     });
     this.dataParams = {
       page: 1,
@@ -23,13 +30,21 @@ class DataStore {
   }
 
   getData = async () => {
-    const fetchedData = await this.services.fetchData(this.dataParams);
-    runInAction(() => {
-      this.data = fetchedData.item;
-      this.totalPages = fetchedData.totalRecords;
-    });
+    this.loading = true;
+    try {
+      const fetchedData = await this.services.fetchData(this.dataParams);
+      runInAction(() => {
+        this.data = fetchedData.item;
+        this.totalPages = Math.ceil(
+          fetchedData.totalRecords / this.dataParams.rpp
+        );
+        this.loading = false;
+      });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      this.loading = false;
+    }
   };
-
   setSortOrder(newSort) {
     if (this.sortBy !== newSort) {
       this.sortOrder = "asc";
@@ -55,6 +70,34 @@ class DataStore {
       this.getData();
     }
   }
-  //Pagination
+
+  setCurrentPage(pageNumber) {
+    if (this.totalPages !== 0) {
+      if (pageNumber < 1) {
+        pageNumber = 1;
+      } else if (pageNumber > this.totalPages) {
+        pageNumber = this.totalPages;
+      }
+      this.dataParams.page = pageNumber;
+      this.currentPage = pageNumber;
+      this.getData();
+    } else {
+      return null;
+    }
+  }
+
+  goToPrevPage = () => {
+    this.setCurrentPage(this.dataParams.page - 1);
+  };
+
+  goToNextPage = () => {
+    this.setCurrentPage(this.dataParams.page + 1);
+  };
+
+  setItemsPerPage(itemsPerPage) {
+    this.dataParams.rpp = itemsPerPage;
+    this.dataParams.page = 1;
+    this.getData();
+  }
 }
 export default DataStore;

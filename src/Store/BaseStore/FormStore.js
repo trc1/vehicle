@@ -90,6 +90,12 @@ class FormStore {
     dataStore.getData();
   };
 
+  extractHeaders(data, headers) {
+    if (!data || data.length === 0 || !headers) return [];
+    const dataObject = data[0];
+    return Object.keys(dataObject).filter((header) => headers.includes(header));
+  }
+
   openModal(item) {
     runInAction(() => {
       this.modal = true;
@@ -97,6 +103,7 @@ class FormStore {
       this.editedFormData = this.selectedItem;
     });
   }
+
   closeModal() {
     runInAction(() => {
       this.modal = false;

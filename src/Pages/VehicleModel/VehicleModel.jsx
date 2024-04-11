@@ -1,31 +1,40 @@
-import React from "react";
+import { observer } from "mobx-react";
 import AddDataForm from "../../Components/Form/AddDataForm";
 import TableMake from "../../Components/Table/TableMake";
 import VehicleMakeStore from "../../Store/VehicleMakeStore";
 import VehicleModelStore from "../../Store/VehicleModelStore";
 import VehicleModelFormStore from "../../Store/VehicleModelFormStore";
 import SearchForm from "../../Components/Form/SearchForm";
-import { observer } from "mobx-react";
+import Pagination from "../../Components/Pagination/Pagination";
+import Logo from "../../Components/Logo/Logo";
 
 const vehicleModelData = new VehicleModelStore();
 const vehicleModelFormStore = new VehicleModelFormStore();
 const vehicleMakeData = new VehicleMakeStore();
+
 function VehicleModel() {
   return (
     <>
-      <SearchForm tableData={vehicleModelData} />
-      <AddDataForm
-        formStore={vehicleModelFormStore}
-        tableData={vehicleModelData}
-        makeData={vehicleMakeData}
-        inputs={["model", "makeId"]}
-      />
-      <TableMake
-        tableData={vehicleModelData}
-        formStore={vehicleModelFormStore}
-        edit={true}
-        headers={["model", "makeId"]}
-      />
+      {vehicleModelData.loading ? (
+        <Logo width={500}/>
+      ) : (
+        <>
+          <SearchForm tableData={vehicleModelData} />
+          <AddDataForm
+            formStore={vehicleModelFormStore}
+            tableData={vehicleModelData}
+            makeData={vehicleMakeData}
+            inputs={["model", "makeId"]}
+          />
+          <TableMake
+            tableData={vehicleModelData}
+            formStore={vehicleModelFormStore}
+            edit={true}
+            headers={["model", "makeId"]}
+          />
+          <Pagination tableData={vehicleModelData} />
+        </>
+      )}
     </>
   );
 }

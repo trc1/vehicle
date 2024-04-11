@@ -1,0 +1,260 @@
+.cls-1 {
+  fill: #402d34;
+}
+
+.cls-1,
+.cls-2,
+.cls-3,
+.cls-4,
+.cls-5,
+.cls-6,
+.cls-7,
+.cls-8,
+.cls-9,
+.cls-10,
+.cls-11,
+.cls-12,
+.cls-13,
+.cls-14,
+.cls-15,
+.cls-16,
+.cls-17,
+.cls-18,
+.cls-19,
+.cls-20,
+.cls-21,
+.cls-22,
+.cls-23,
+.cls-24,
+.cls-25,
+.cls-26,
+.cls-27,
+.cls-28,
+.cls-29,
+.cls-30,
+.cls-31,
+.cls-32,
+.cls-33,
+.cls-34,
+.cls-35,
+.cls-36,
+.cls-37,
+.cls-38,
+.cls-39,
+.cls-40 {
+  stroke-width: 0px;
+}
+
+.cls-2 {
+  fill: #241817;
+}
+
+.cls-3 {
+  fill: #4b4755;
+}
+
+.cls-4 {
+  fill: #5b5a67;
+}
+
+.cls-5 {
+  fill: #fcfcfb;
+}
+
+.cls-6 {
+  fill: #d8d8d5;
+}
+
+.cls-7 {
+  fill: #abaaae;
+}
+
+.cls-8 {
+  fill: #28222f;
+}
+
+.cls-9 {
+  fill: #605e6a;
+}
+
+.cls-10 {
+  fill: #523f46;
+}
+
+.cls-11 {
+  fill: #271816;
+}
+
+.cls-12 {
+  fill: #2b1715;
+}
+
+.cls-13 {
+  fill: #e2e3e3;
+}
+
+.cls-14 {
+  fill: #aaaaad;
+}
+
+.cls-15 {
+  fill: #939598;
+}
+
+.cls-16 {
+  fill: #e3e4e6;
+}
+
+.cls-17 {
+  fill: #261d22;
+}
+
+.cls-18 {
+  fill: #1f1921;
+}
+
+.cls-19 {
+  fill: #58434e;
+}
+
+.cls-20 {
+  fill: #f5f4f6;
+}
+
+.cls-21 {
+  fill: #9e9fa5;
+}
+
+.cls-22 {
+  fill: #d3d3d3;
+}
+
+.cls-23 {
+  fill: #282532;
+}
+
+.cls-24 {
+  fill: #edf1f2;
+}
+
+.cls-25 {
+  fill: #1d1c20;
+}
+
+.cls-26 {
+  fill: #0f98fb;
+}
+
+.cls-27 {
+  fill: #3f2c33;
+}
+
+.cls-28 {
+  fill: #eaeae8;
+}
+
+.cls-29 {
+  fill: #3e2b30;
+}
+
+.cls-30 {
+  fill: #edf1f1;
+}
+
+.cls-31 {
+  fill: #fcfcfa;
+}
+
+.cls-32 {
+  fill: #b6251f;
+}
+
+.cls-33 {
+  fill: #292330;
+}
+
+.cls-34 {
+  fill: #eeeced;
+}
+
+.cls-35 {
+  fill: #414251;
+}
+
+.cls-36 {
+  fill: #57424b;
+}
+
+.cls-37 {
+  fill: #fbfcfa;
+}
+
+.cls-38 {
+  fill: #c7c6ca;
+}
+
+.cls-39 {
+  fill: #f8f8fa;
+}
+
+.cls-40 {
+  fill: #6c696c;
+}
+svg {
+  position: relative;
+}
+
+#L-rim {
+  animation: spin 2s linear infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+#R-rim {
+  animation: spin 2s linear infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+#R-tire {
+  animation: upDown 1s linear infinite;
+}
+#L-tire {
+  animation: upDown 1s linear infinite;
+}
+
+#body {
+  animation: upDown 1s linear infinite;
+}
+
+#smoke {
+  animation: smoking 1s linear infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes upDown {
+  0% {
+    transform: translateY(0);
+  }
+  49% {
+    transform: translateY(15px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes smoking {
+  0% {
+    transform: translateX(50px) scale(0.5);
+  }
+  100% {
+    transform: translateX(-100px) scale(1);
+    opacity: 0;
+  }
+}

@@ -1,4 +1,3 @@
-import React from "react";
 import { observer } from "mobx-react";
 import UpdateForm from "../Form/UpdateForm";
 
@@ -7,42 +6,44 @@ function TableMake({ tableData, formStore, edit, makeData, headers }) {
     return <div>No data available</div>;
   }
 
-  // Function to extract headers from the data object
-  const extractHeaders = (data) => {
-    if (!data || data.length === 0 || !headers) return [];
-    const dataObject = data[0];
-    return Object.keys(dataObject).filter((header) => headers.includes(header));
-  };
-
-  // Extracting headers from tableData and makeData
-  const vehicleHeaders = extractHeaders(tableData.data);
-  const makeHeaders = makeData ? extractHeaders(makeData.data) : [];
-
   return (
     <>
       <table id="myTable">
         <thead>
           <tr>
-            {vehicleHeaders.map((header) => (
-              <th
-                key={header}
-                onClick={() => formStore.handleSort(header, tableData)}
-              >
-                {header}
-              </th>
-            ))}
-
-            {makeHeaders.length > 0 &&
-              makeHeaders.map((header) => (
+            {(() => {
+              const vehicleHeaders = formStore.extractHeaders(
+                tableData.data,
+                headers
+              );
+              return vehicleHeaders.map((header) => (
                 <th
                   key={header}
-                  onClick={() => {
-                    formStore.handleSort(header, makeData);
-                  }}
+                  onClick={() => formStore.handleSort(header, tableData)}
                 >
                   {header}
                 </th>
-              ))}
+              ));
+            })()}
+
+            {makeData &&
+              makeData.data &&
+              makeData.data.length > 0 &&
+              (() => {
+                const makeHeaders = formStore.extractHeaders(
+                  makeData.data,
+                  headers
+                );
+                return makeHeaders.map((header) => (
+                  <th
+                    key={header}
+                    onClick={() => formStore.handleSort(header, makeData)}
+                  >
+                    {header}
+                  </th>
+                ));
+              })()}
+
             {edit && <th>Edit</th>}
             {edit && <th>Delete</th>}
           </tr>
@@ -55,16 +56,31 @@ function TableMake({ tableData, formStore, edit, makeData, headers }) {
                 : null;
             return (
               <tr key={index}>
-                {vehicleHeaders.map((header) => (
-                  <td key={header}>
-                    <span>{item[header]}</span>
-                  </td>
-                ))}
-                {makeHeaders.length > 0 &&
+                {(() => {
+                  const vehicleHeaders = formStore.extractHeaders(
+                    tableData.data,
+                    headers
+                  );
+                  return vehicleHeaders.map((header) => (
+                    <td key={header}>
+                      <span>{item[header]}</span>
+                    </td>
+                  ));
+                })()}
+
+                {makeData &&
+                  makeData.data &&
                   make &&
-                  makeHeaders.map((header) => (
-                    <td key={header}>{make[header]}</td>
-                  ))}
+                  (() => {
+                    const makeHeaders = formStore.extractHeaders(
+                      makeData.data,
+                      headers
+                    );
+                    return makeHeaders.map((header) => (
+                      <td key={header}>{make[header]}</td>
+                    ));
+                  })()}
+
                 {edit && (
                   <>
                     <td>

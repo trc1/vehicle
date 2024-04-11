@@ -1,3 +1,5 @@
+import { observer } from "mobx-react";
+
 function SearchForm({ tableData }) {
   return (
     <div>
@@ -10,4 +12,4 @@ function SearchForm({ tableData }) {
   );
 }
 
-export default SearchForm;
+export default observer(SearchForm);
