@@ -35,7 +35,7 @@ class FormStore {
         return; // Prevent submission if formData is empty
       }
 
-      await this.services.add(this.formData);
+      await this.services.addData(this.formData);
       runInAction(() => {
         this.formData = {};
       });
@@ -47,7 +47,7 @@ class FormStore {
 
   async deleteData(data) {
     try {
-      await this.services.delete(data);
+      await this.services.deleteData(data);
     } catch (error) {
       console.error("Error deleting data:", error);
     }
@@ -59,7 +59,7 @@ class FormStore {
     };
     try {
       // Call updateDataService asynchronously using await
-      await this.services.update(data.id, data.data);
+      await this.services.updateData(data.id, data.data);
       // Reset inputUpdateValues after submission
       this.editedFormData = {};
       runInAction(() => {

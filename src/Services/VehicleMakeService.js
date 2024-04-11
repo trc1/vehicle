@@ -19,6 +19,42 @@ class VehicleMakeService extends ApiService {
       throw error;
     }
   }
+
+  async addData(data) {
+    try {
+      const response = await this.add(data);
+      if (!response.ok) {
+        throw new Error("Failed to add vehicle make");
+      }
+    } catch (error) {
+      console.error("Error adding vehicle make:", error);
+      throw error;
+    }
+  }
+
+  async updateData(id) {
+    try {
+      const response = await this.update(id);
+      if (!response.ok) {
+        throw new Error("Failed to update vehicle make");
+      }
+    } catch (error) {
+      console.error("Error updating vehicle make:", error);
+      throw error;
+    }
+  }
+
+  async deleteData(id) {
+    try {
+      const response = await this.delete(id);
+      if (!response.ok) {
+        throw new Error("Failed to delete vehicle make");
+      }
+    } catch (error) {
+      console.error("Error deleting vehicle make:", error);
+      throw error;
+    }
+  }
 }
 
 export default VehicleMakeService;

@@ -4,14 +4,11 @@ class DataStore {
   data = [];
   totalPages = null;
   dataParams = {};
-  name = "";
   constructor() {
     makeObservable(this, {
       data: observable,
-      name: observable,
       totalPages: observable,
       getData: action,
-      setName: action,
       setSortOrder: action,
       setTableFilter: action,
     });
@@ -33,9 +30,6 @@ class DataStore {
     });
   };
 
-  setName(newName) {
-    this.name = newName;
-  }
   setSortOrder(newSort) {
     if (this.sortBy !== newSort) {
       this.sortOrder = "asc";
