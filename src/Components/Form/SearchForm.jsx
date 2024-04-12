@@ -1,8 +1,11 @@
 import { observer } from "mobx-react";
+import Search from "../Icons/Search";
+import "./SearchForm.scss";
 
 function SearchForm({ tableData }) {
   return (
-    <div>
+    <div className="search-wrapper">
+      <Search />
       <input
         type="text"
         placeholder="Search here..."

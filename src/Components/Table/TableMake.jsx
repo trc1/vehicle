@@ -1,6 +1,7 @@
 import { observer } from "mobx-react";
 import UpdateForm from "../Form/UpdateForm";
 import "./TableMake.scss";
+import Sort from "../Icons/Sort";
 
 function TableMake({ tableData, formStore, edit, makeData, headers }) {
   if (!tableData.data || tableData.data.length === 0) {
@@ -11,7 +12,7 @@ function TableMake({ tableData, formStore, edit, makeData, headers }) {
     <>
       <table className="table">
         <thead>
-          <tr>
+          <tr className="table__headers">
             {(() => {
               const vehicleHeaders = formStore.extractHeaders(
                 tableData.data,
@@ -22,7 +23,10 @@ function TableMake({ tableData, formStore, edit, makeData, headers }) {
                   key={header}
                   onClick={() => formStore.handleSort(header, tableData)}
                 >
-                  {header}
+                  <div>{header}</div>
+                  <span>
+                    <Sort />
+                  </span>
                 </th>
               ));
             })()}

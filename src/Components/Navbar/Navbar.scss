@@ -17,7 +17,7 @@
       position: absolute;
       animation: moveIn 1s forwards;
       animation-delay: 5s;
-      left: -100%;
+      left: -200%;
       & div {
         margin: -10px 0;
       }
@@ -46,7 +46,7 @@
 }
 @keyframes moveIn {
   0% {
-    left: -100%;
+    left: -200%;
     color: white;
   }
   100% {

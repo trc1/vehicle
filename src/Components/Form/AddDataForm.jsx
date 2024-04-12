@@ -1,4 +1,5 @@
 import { observer } from "mobx-react";
+import "./AddDataForm.scss";
 
 function AddDataForm({ formStore, tableData, makeData, inputs }) {
   if (!tableData.data || tableData.data.length === 0) {
@@ -6,7 +7,7 @@ function AddDataForm({ formStore, tableData, makeData, inputs }) {
   }
 
   return (
-    <form>
+    <form className="form-wrapper">
       {inputs.map((item) => (
         <div key={item}>
           {item.toLowerCase() === "makeid" ? (
