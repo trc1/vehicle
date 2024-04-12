@@ -1,5 +1,6 @@
 import { observer } from "mobx-react";
 import UpdateForm from "../Form/UpdateForm";
+import "./TableMake.scss";
 
 function TableMake({ tableData, formStore, edit, makeData, headers }) {
   if (!tableData.data || tableData.data.length === 0) {
@@ -8,7 +9,7 @@ function TableMake({ tableData, formStore, edit, makeData, headers }) {
 
   return (
     <>
-      <table id="myTable">
+      <table className="table">
         <thead>
           <tr>
             {(() => {

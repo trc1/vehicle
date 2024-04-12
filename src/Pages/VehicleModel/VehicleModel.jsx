@@ -16,7 +16,7 @@ function VehicleModel() {
   return (
     <>
       {vehicleModelData.loading ? (
-        <Logo width={500}/>
+        <Logo width={300} opacity={30}/>
       ) : (
         <>
           <SearchForm tableData={vehicleModelData} />

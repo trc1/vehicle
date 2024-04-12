@@ -6,11 +6,17 @@ function Navbar() {
   return (
     <nav>
       <ul className="nav">
-        <Link to="/">
-          <li className="nav__logo">
-            <Logo width={150}/>
-          </li>
-        </Link>
+        <div className="nav__logo">
+          <Link to="/">
+            <span>
+              <div>TRABANT</div>
+              <div>VEHICLES</div>
+            </span>
+            <li>
+              <Logo width={150} />
+            </li>{" "}
+          </Link>
+        </div>
         <div className="nav__pages">
           <Link to="/vehicleModel">
             <li>Vehicle Model</li>
