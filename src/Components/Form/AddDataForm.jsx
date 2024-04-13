@@ -7,7 +7,15 @@ function AddDataForm({ formStore, tableData, makeData, inputs }) {
   }
 
   return (
-    <form className="form-wrapper">
+    <form
+      className="form-wrapper"
+      onSubmit={async (e) => {
+        e.preventDefault();
+        await formStore.createNewData();
+        await tableData.getData();
+        await formStore.resetForm(inputs);
+      }}
+    >
       {inputs.map((item) => (
         <div key={item}>
           {item.toLowerCase() === "makeid" ? (
@@ -34,19 +42,15 @@ function AddDataForm({ formStore, tableData, makeData, inputs }) {
                 type="text"
                 placeholder={`Enter ${item}..`}
                 name={item}
-                onChange={(e) => formStore.getFormData(item, e.target.value)}
+                onChange={(e) =>
+                  formStore.getFormData(e.target.name, e.target.value)
+                }
               />
             </div>
           )}
         </div>
       ))}
-      <button
-        onClick={() => {
-          formStore.createNewData();
-        }}
-      >
-        Submit
-      </button>
+      <button>Submit</button>
     </form>
   );
 }

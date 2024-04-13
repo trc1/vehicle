@@ -21,38 +21,37 @@ class ApiService {
 
   getHeaders() {
     return {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("userToken")}`,
     };
   }
 
-  async fetch(queryParams, data) {
+  async fetch(queryParams) {
     const url = this.constructURL(this.baseUrl, queryParams);
     return await fetch(url, {
-      method: 'GET',
+      method: "GET",
       headers: this.getHeaders(),
-      body: data ? JSON.stringify(data) : null,
     });
   }
 
   async add(data) {
-    return await fetch(this.baseUrl, {
-      method: 'POST',
+    await fetch(this.baseUrl, {
+      method: "POST",
       headers: this.getHeaders(),
       body: JSON.stringify(data),
     });
   }
 
   async delete(id) {
-    return await fetch(`${this.baseUrl}/${id}`, {
-      method: 'DELETE',
+    await fetch(`${this.baseUrl}/${id}`, {
+      method: "DELETE",
       headers: this.getHeaders(),
     });
   }
 
   async update(id, data) {
-    return await fetch(`${this.baseUrl}/${id}`, {
-      method: 'PATCH',
+    await fetch(`${this.baseUrl}/${id}`, {
+      method: "PATCH",
       headers: this.getHeaders(),
       body: JSON.stringify(data),
     });

@@ -5,7 +5,6 @@ import VehicleModelStore from "../../Store/VehicleModelStore";
 import VehicleMakeStore from "../../Store/VehicleMakeStore";
 import SearchForm from "../../Components/Form/SearchForm";
 import Pagination from "../../Components/Pagination/Pagination";
-import Logo from "../../Components/Logo/Logo";
 
 const vehicleModelData = new VehicleModelStore();
 const vehicleModelFormStore = new VehicleModelFormStore();
@@ -14,20 +13,14 @@ const vehicleMakeData = new VehicleMakeStore();
 function Home() {
   return (
     <>
-      {vehicleMakeData.loading ? (
-        <Logo width={300} opacity={30}/>
-      ) : (
-        <>
-          <SearchForm tableData={vehicleModelData} makeData={vehicleMakeData} />
-          <TableMake
-            tableData={vehicleModelData}
-            makeData={vehicleMakeData}
-            formStore={vehicleModelFormStore}
-            headers={["model", "makeId", "abrv", "name"]}
-          />
-          <Pagination tableData={vehicleModelData} />
-        </>
-      )}
+      <SearchForm tableData={vehicleModelData} />
+      <TableMake
+        tableData={vehicleModelData}
+        makeData={vehicleMakeData}
+        formStore={vehicleModelFormStore}
+        headers={["model", "makeId", "abrv", "name"]}
+      />
+      <Pagination tableData={vehicleModelData} />
     </>
   );
 }

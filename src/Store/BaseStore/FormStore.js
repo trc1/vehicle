@@ -28,17 +28,10 @@ class FormStore {
   }
 
   async createNewData() {
+    const data = this.formData;
     try {
-      // Check if formData is empty
-      if (Object.keys(this.formData).length === 0) {
-        alert("Form data is empty. Cannot submit.");
-        return; // Prevent submission if formData is empty
-      }
-
-      await this.services.addData(this.formData);
-      runInAction(() => {
-        this.formData = {};
-      });
+      await this.services.add(data);
+      this.formData = {};
     } catch (error) {
       console.error("Error creating new data:", error);
       throw error;
@@ -47,19 +40,16 @@ class FormStore {
 
   async deleteData(data) {
     try {
-      await this.services.deleteData(data);
+      await this.services.delete(data);
     } catch (error) {
       console.error("Error deleting data:", error);
     }
   }
-  async updateData(resource) {
-    const data = {
-      id: resource,
-      data: this.editedFormData,
-    };
+  async updateData(id) {
+    const data = this.editedFormData;
     try {
       // Call updateDataService asynchronously using await
-      await this.services.updateData(data.id, data.data);
+      await this.services.update(id, data);
       // Reset inputUpdateValues after submission
       this.editedFormData = {};
       runInAction(() => {
@@ -81,6 +71,13 @@ class FormStore {
     } else {
       this.getFormData(item, value);
     }
+  };
+
+  resetForm = (inputs) => {
+    // Reset all input fields to empty values
+    inputs.forEach((item) => {
+      document.getElementsByName(item)[0].value = ""; // Reset input value to empty string
+    });
   };
 
   handleSort = (header, dataStore) => {

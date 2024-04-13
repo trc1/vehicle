@@ -30,7 +30,6 @@ class DataStore {
   }
 
   getData = async () => {
-    this.loading = true;
     try {
       const fetchedData = await this.services.fetchData(this.dataParams);
       runInAction(() => {
@@ -38,11 +37,9 @@ class DataStore {
         this.totalPages = Math.ceil(
           fetchedData.totalRecords / this.dataParams.rpp
         );
-        this.loading = false;
       });
     } catch (error) {
       console.error("Error fetching data:", error);
-      this.loading = false;
     }
   };
   setSortOrder(newSort) {

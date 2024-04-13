@@ -6,7 +6,12 @@ const UpdateForm = ({ tableData, formStore }) => {
   }
 
   return (
-    <form>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        formStore.updateData(tableData.id);
+      }}
+    >
       {Object.keys(tableData).map((item) => (
         <div key={item}>
           {item.toLowerCase() !== "makeid" && item.toLowerCase() !== "id" && (
@@ -23,13 +28,7 @@ const UpdateForm = ({ tableData, formStore }) => {
           )}
         </div>
       ))}
-      <button
-        onClick={() => {
-          formStore.updateData(tableData.id);
-        }}
-      >
-        Submit
-      </button>
+      <button>Submit</button>
     </form>
   );
 };
