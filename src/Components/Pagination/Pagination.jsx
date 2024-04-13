@@ -24,7 +24,10 @@ function Pagination({ tableData }) {
       </div>
       <span className="pagination-wrapper__rpp">
         <select
-          onChange={(e) => tableData.setItemsPerPage(e.target.value)}
+           onChange={() => {
+            tableData.setItemsPerPage(e.target.value);
+            tableData.currentPage = 1;
+          }}
           value={tableData.dataParams.rpp}
         >
           {tableData.itemsPerPageOptions.map((option) => (
