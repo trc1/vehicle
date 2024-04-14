@@ -30,7 +30,6 @@ class ApiService {
     const url = this.constructURL(this.baseUrl, queryParams);
     return await fetch(url, {
       method: "GET",
-      headers: this.getHeaders(),
     });
   }
 
