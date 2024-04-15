@@ -1,6 +1,7 @@
 import { observer } from "mobx-react";
 import Arrow from "../Icons/Arrow";
 import "./Pagination.scss";
+import { runInAction } from "mobx";
 
 function Pagination({ tableData }) {
   return (
@@ -24,9 +25,11 @@ function Pagination({ tableData }) {
       </div>
       <span className="pagination-wrapper__rpp">
         <select
-           onChange={() => {
-            tableData.setItemsPerPage(e.target.value);
-            tableData.currentPage = 1;
+          onChange={(e) => {
+            runInAction(() => {
+              tableData.setItemsPerPage(e.target.value);
+              tableData.currentPage = 1;
+            });
           }}
           value={tableData.dataParams.rpp}
         >

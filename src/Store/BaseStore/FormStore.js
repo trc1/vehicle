@@ -16,7 +16,7 @@ class FormStore {
       createNewData: action,
       deleteData: action,
       handleSelect: action,
-      handleSort: action,
+      validateForm: action,
     });
   }
 
@@ -59,39 +59,29 @@ class FormStore {
       console.error("Failed to update data:", error);
     }
   }
+  validateForm = (inputs) => {
+    const requiredFields = inputs.filter(
+      (item) => item.toLowerCase() !== "makeid"
+    );
+    for (const field of requiredFields) {
+      if (!this.formData[field]) {
+        alert(`${field} is required.`);
+        return false;
+      }
+    }
+    return true;
+  };
 
   handleSelect = (item, value, tableData) => {
     if (item.toLowerCase() === "makeid") {
       // Get the selected make object
       const selectedMake = tableData.data.find((make) => make.id === value);
-      const { id, name, abrv } = selectedMake;
+      const { id } = selectedMake;
       this.getFormData("makeId", id);
-      /*       this.getFormData("make", name);
-      this.getFormData("make-abrv", abrv); */
     } else {
       this.getFormData(item, value);
     }
   };
-
-  resetForm = (inputs) => {
-    // Reset all input fields to empty values
-    inputs.forEach((item) => {
-      document.getElementsByName(item)[0].value = ""; // Reset input value to empty string
-    });
-  };
-
-  handleSort = (header, dataStore) => {
-    const newSortBy = header.toLowerCase();
-    dataStore.setSortOrder((dataStore.sortBy = newSortBy));
-    dataStore.dataParams.sort = `${newSortBy}|${dataStore.sortOrder}`;
-    dataStore.getData();
-  };
-
-  extractHeaders(data, headers) {
-    if (!data || data.length === 0 || !headers) return [];
-    const dataObject = data[0];
-    return Object.keys(dataObject).filter((header) => headers.includes(header));
-  }
 
   openModal(item) {
     runInAction(() => {

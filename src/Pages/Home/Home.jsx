@@ -6,11 +6,11 @@ import VehicleMakeStore from "../../Store/VehicleMakeStore";
 import SearchForm from "../../Components/Form/SearchForm";
 import Pagination from "../../Components/Pagination/Pagination";
 
-const vehicleModelData = new VehicleModelStore();
-const vehicleModelFormStore = new VehicleModelFormStore();
-const vehicleMakeData = new VehicleMakeStore();
-
 function Home() {
+  const vehicleModelData = new VehicleModelStore();
+  const vehicleModelFormStore = new VehicleModelFormStore();
+  const vehicleMakeData = new VehicleMakeStore();
+
   return (
     <>
       <SearchForm tableData={vehicleModelData} />
@@ -18,7 +18,7 @@ function Home() {
         tableData={vehicleModelData}
         makeData={vehicleMakeData}
         formStore={vehicleModelFormStore}
-        headers={["model", "makeId", "abrv", "name"]}
+        headers={["model", "logo", "abrv", "name", "image"]}
       />
       <Pagination tableData={vehicleModelData} />
     </>

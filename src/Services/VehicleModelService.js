@@ -11,7 +11,7 @@ class VehicleModelService extends ApiService {
       const data = await response.json();
       return data;
     } catch (error) {
-      console.error("Error fetching data from fetchVehicleModels:", error);
+      console.error("Error fetching data from VehicleModels:", error);
       throw error;
     }
   }

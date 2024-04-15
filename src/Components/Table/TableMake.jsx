@@ -1,9 +1,17 @@
+import { useState } from "react";
 import { observer } from "mobx-react";
 import UpdateForm from "../Form/UpdateForm";
-import "./TableMake.scss";
 import Sort from "../Icons/Sort";
+import {
+  handleImageClick,
+  extractHeaders,
+  handleSort,
+} from "../../Utils/tableUtils";
+import "./TableMake.scss";
 
 function TableMake({ tableData, formStore, edit, makeData, headers }) {
+  const [selectedImage, setSelectedImage] = useState(null);
+
   if (!tableData.data || tableData.data.length === 0) {
     return <div>No data available</div>;
   }
@@ -14,15 +22,9 @@ function TableMake({ tableData, formStore, edit, makeData, headers }) {
         <thead>
           <tr className="table__headers">
             {(() => {
-              const vehicleHeaders = formStore.extractHeaders(
-                tableData.data,
-                headers
-              );
+              const vehicleHeaders = extractHeaders(tableData.data, headers);
               return vehicleHeaders.map((header) => (
-                <th
-                  key={header}
-                  onClick={() => formStore.handleSort(header, tableData)}
-                >
+                <th key={header} onClick={() => handleSort(header, tableData)}>
                   <div>{header}</div>
                   <span>
                     <Sort />
@@ -30,20 +32,13 @@ function TableMake({ tableData, formStore, edit, makeData, headers }) {
                 </th>
               ));
             })()}
-
             {makeData &&
               makeData.data &&
               makeData.data.length > 0 &&
               (() => {
-                const makeHeaders = formStore.extractHeaders(
-                  makeData.data,
-                  headers
-                );
+                const makeHeaders = extractHeaders(makeData.data, headers);
                 return makeHeaders.map((header) => (
-                  <th
-                    key={header}
-                    onClick={() => formStore.handleSort(header, makeData)}
-                  >
+                  <th key={header} onClick={() => handleSort(header, makeData)}>
                     {header}
                   </th>
                 ));
@@ -62,13 +57,24 @@ function TableMake({ tableData, formStore, edit, makeData, headers }) {
             return (
               <tr key={index}>
                 {(() => {
-                  const vehicleHeaders = formStore.extractHeaders(
+                  const vehicleHeaders = extractHeaders(
                     tableData.data,
                     headers
                   );
                   return vehicleHeaders.map((header) => (
-                    <td key={header}>
-                      <span>{item[header]}</span>
+                    <td
+                      key={header}
+                      onClick={() => handleImageClick(item, setSelectedImage)}
+                    >
+                      {header.includes("logo") || header.includes("image") ? (
+                        <img
+                          src={item[header]}
+                          alt={item["model"]}
+                          className="table__logo"
+                        />
+                      ) : (
+                        <span>{item[header]}</span>
+                      )}
                     </td>
                   ));
                 })()}
@@ -77,19 +83,30 @@ function TableMake({ tableData, formStore, edit, makeData, headers }) {
                   makeData.data &&
                   make &&
                   (() => {
-                    const makeHeaders = formStore.extractHeaders(
-                      makeData.data,
-                      headers
-                    );
+                    const makeHeaders = extractHeaders(makeData.data, headers);
                     return makeHeaders.map((header) => (
-                      <td key={header}>{make[header]}</td>
+                      <td key={header}>
+                        {header.includes("logo") ? (
+                          <img
+                            src={make[header]}
+                            alt={make["name"]}
+                            className="table__logo"
+                          />
+                        ) : (
+                          <span>{make[header]}</span>
+                        )}
+                      </td>
                     ));
                   })()}
 
                 {edit && (
                   <>
                     <td>
-                      <button onClick={() => formStore.openModal(item)}>
+                      <button
+                        onClick={() => {
+                          formStore.openModal(item);
+                        }}
+                      >
                         Edit
                       </button>
                     </td>
@@ -113,6 +130,14 @@ function TableMake({ tableData, formStore, edit, makeData, headers }) {
       {formStore.modal ? (
         <UpdateForm tableData={formStore.selectedItem} formStore={formStore} />
       ) : null}
+      {selectedImage && (
+        <div className="image-wrapper" onClick={() => setSelectedImage(null)}>
+          <div>
+            <img src={selectedImage} alt="Selected Image" />
+            <span className="close"></span>
+          </div>
+        </div>
+      )}
     </>
   );
 }

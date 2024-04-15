@@ -3,14 +3,14 @@ class AuthService {
     let loginUrl = `${import.meta.env.VITE_API_URL}login`;
     //env
     let response = await fetch(loginUrl, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        "Content-Type": "application/x-www-form-urlencoded",
       },
       body: `grant_type=password&username=${username}&password=${password}`,
     });
     return localStorage.setItem(
-      'userToken',
+      "userToken",
       await response.json().then((res) => res.access_token)
     );
   }

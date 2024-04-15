@@ -1,5 +1,6 @@
 import { observer } from "mobx-react";
 import "./AddDataForm.scss";
+import { convertImageToBase64, resetForm } from "../../Utils/tableUtils";
 
 function AddDataForm({ formStore, tableData, makeData, inputs }) {
   if (!tableData.data || tableData.data.length === 0) {
@@ -11,9 +12,12 @@ function AddDataForm({ formStore, tableData, makeData, inputs }) {
       className="form-wrapper"
       onSubmit={async (e) => {
         e.preventDefault();
-        await formStore.createNewData();
-        await tableData.getData();
-        await formStore.resetForm(inputs);
+        const isValid = formStore.validateForm(inputs);
+        if (isValid) {
+          await formStore.createNewData();
+          await tableData.getData();
+          await resetForm(inputs);
+        }
       }}
     >
       {inputs.map((item) => (
@@ -30,10 +34,25 @@ function AddDataForm({ formStore, tableData, makeData, inputs }) {
                 <option value="">Select a make</option>
                 {makeData.data.map((make) => (
                   <option key={make.id} value={make.id}>
-                    {make.name}
+                    {make.abrv}
                   </option>
                 ))}
               </select>
+            </div>
+          ) : item.toLowerCase() === "logo" ||
+            item.toLowerCase() === "image" ? (
+            <div>
+              <label>{item[0].toUpperCase() + item.slice(1)}:</label>
+              <input
+                type="file"
+                accept="image/*"
+                name={item}
+                onChange={(e) =>
+                  convertImageToBase64(e.target, (base64String) => {
+                    formStore.getFormData(item, base64String);
+                  })
+                }
+              />
             </div>
           ) : (
             <div>
