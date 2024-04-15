@@ -50,6 +50,8 @@ class DataStore {
         this.sortOrder = "desc";
       } else this.sortOrder = "asc";
     }
+    this.dataParams.page = 1;
+    this.currentPage = 1;
   }
   setTableFilter(text) {
     let textCombined = text.replace(/[^a-zA-Z0-9\s]+/g, "");
