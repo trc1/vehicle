@@ -26,11 +26,19 @@ function UpdateForm({ tableData, formStore }) {
                     type="file"
                     id="image"
                     accept="image/*"
-                    onChange={(e) =>
-                      convertImageToBase64(e.target, (base64String) => {
-                        formStore.getEditedFormData(item, base64String);
-                      })
-                    }
+                    onChange={(e) => {
+                      const file = e.target.files[0];
+                      if (file && file.size > 500 * 1024) {
+                        // File size exceeds 500KB
+                        alert("Please select a file smaller than 500KB.");
+                        // Clear the file input
+                        e.target.value = null;
+                      } else {
+                        convertImageToBase64(e.target, (base64String) => {
+                          formStore.getEditedFormData(item, base64String);
+                        });
+                      }
+                    }}
                   />
                   {tableData[item] && (
                     <img

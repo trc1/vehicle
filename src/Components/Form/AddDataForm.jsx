@@ -16,7 +16,7 @@ function AddDataForm({ formStore, tableData, makeData, inputs }) {
         if (isValid) {
           await formStore.createNewData();
           await tableData.getData();
-          await resetForm(inputs);
+          resetForm(inputs);
         }
       }}
     >
@@ -47,11 +47,19 @@ function AddDataForm({ formStore, tableData, makeData, inputs }) {
                 type="file"
                 accept="image/*"
                 name={item}
-                onChange={(e) =>
-                  convertImageToBase64(e.target, (base64String) => {
-                    formStore.getFormData(item, base64String);
-                  })
-                }
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  if (file && file.size > 500 * 1024) {
+                    // File size exceeds 500KB
+                    alert("Please select a file smaller than 500KB.");
+                    // Clear the file input
+                    e.target.value = null;
+                  } else {
+                    convertImageToBase64(e.target, (base64String) => {
+                      formStore.getFormData(item, base64String);
+                    });
+                  }
+                }}
               />
             </div>
           ) : (
