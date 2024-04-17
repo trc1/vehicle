@@ -8,12 +8,13 @@ import {
   handleSort,
 } from "../../Utils/tableUtils";
 import "./TableMake.scss";
+import Loader from "../Loader/Loader";
 
 function TableMake({ tableData, formStore, edit, makeData, headers }) {
   const [selectedImage, setSelectedImage] = useState(null);
 
   if (!tableData.data || tableData.data.length === 0) {
-    return <div>No data available</div>;
+    return <Loader />;
   }
 
   return (
